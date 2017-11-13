@@ -28,6 +28,7 @@ class Template:
 		finalConfidence = 0
 		bestMatch = 0
 		bestConfidence = 0.0
+		#print self.name, len(self.desTemp), len(self.positions)
 		for template in templates:
 			#print template.name, self.name
 			if template.name[:-1] in self.name:

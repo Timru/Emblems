@@ -1,1 +1,1 @@
-<root><featureExtraction path="/data/training/"><template name="bassClef" /><template name="gClef" /></featureExtraction></root>
+<root><featureExtraction path="/data/training/"><template name="b1" /><template name="b2" /><template name="b3" /><template name="b4" /><template name="b5" /><template name="b6" /><template name="b7" /><template name="b8" /><template name="b9" /><template name="original" /></featureExtraction></root>

@@ -22,7 +22,7 @@ class RootSIFT:
 		# if there are no keypoints or descriptors, return an empty tuple
 		if len(kps) == 0:
 			return ([], None)
- 
+
 		# apply the Hellinger kernel by first L1-normalizing and taking the
 		# square-root
 		descs /= (descs.sum(axis=1, keepdims=True) + eps)
@@ -90,23 +90,27 @@ def detectKeyPointsWithSIFT(image, templates, useBFMatch, precision):
 	kpImg, desImg = sift.detectAndCompute(img_gray,None)
 	rs = RootSIFT()
 	kpImg, desImg = rs.compute(img_gray, kpImg)
-
+	precision = 1-precision
 	if useBFMatch:
 		#clock = timer.StopWatch()
 		
 		bf = cv2.BFMatcher()
 
 		for template in templates:
+			#print template.name
+			#print len(template.desTemp)
 			#clock.count()
 			result = []
 			xyCoordinates = []
 			#kpTemp, desTemp = sift.detectAndCompute(template.image, None)
 			matches = bf.knnMatch(desImg, template.desTemp, k=2)
-			precision = 1-precision;
+			#print len(matches)
+			
+			
 			for m,n in matches:
 				if m.distance < precision*n.distance:
 					result.append(m)
-		
+			#print len(result)
 			for mat in result:
 				point = []
 				img1_idx = mat.queryIdx
@@ -115,6 +119,7 @@ def detectKeyPointsWithSIFT(image, templates, useBFMatch, precision):
 				point.append(int(tuple[1]))
 
 				template.positions.append(point)
+				
 
 	else:
 		FLANN_INDEX_KDTREE = 1
